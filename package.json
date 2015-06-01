@@ -1,0 +1,33 @@
+{
+  "name": "send-logentries",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Send logs to logentries with a name instead of token and expose a basic functions to use with your logs.",
+  "main": "./lib/send-logentries.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Peter Pereira <pereira.pedro.h@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "node-logentries": "^0.1.4",
+    "on-headers": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/peterhenryfirst/send-logentries.git"
+  },
+  "keywords": [
+    "logentries",
+    "log"
+  ],
+  "bugs": {
+    "url": "https://github.com/peterhenryfirst/send-logentries/issues"
+  },
+  "homepage": "https://github.com/peterhenryfirst/send-logentries",
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "mocha": "^2.2.5",
+    "mockery": "^1.4.0"
+  }
+}
