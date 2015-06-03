@@ -15,10 +15,27 @@ The basic use to add to your application:
 
 ```javascript
 var sl = require('send-logentries'),
-	log = sl.init('app-test');
+	log = sl.init('app-test', sl.setSettings('path/to/file.json');
 ```
 
-The variable `log` should have the same as logentries module when you put the token.
+The `log` variable should have the same as logentries module when you put the token.
+
+When you run your application, you need to create a json file with an object with tuples of name/token:
+
+```javascript
+{
+	"default":
+	{
+		"token": "<token_value>"
+	},
+	"name":
+	{
+		"token": "<token_value>"
+	}
+}
+```
+
+And set the path of that file to the `init` function.
 
 If you like, you can use other basic functions to use in your code.
 
@@ -54,7 +71,7 @@ app.use(sl.responseTime(function (time) {
 }));
 ```
 
-You can measure time for your async functions:
+You can also measure time for your async functions:
 
 ```javascript
 var idTimeStamp = sl.start();
@@ -66,27 +83,6 @@ setTimeout(function() {
 	console.log('Time(ms): ', elapsedMilli);
 	log.info( { Time: elapsedMilli, unit: 'ms' } );
 }, 5000);
-```
-
-When you run your application, you need to add a enviroment var to use (depends on your system) with the name: LE_TOKENS and represents a json file with an object with tuples of name/token:
-
-```javascript
-{
-	"default":
-	{
-		"token": "<token_value>"
-	},
-	"name":
-	{
-		"token": "<token_value>"
-	}
-}
-```
-
-An example in unix systems:
-
-```sh
- LE_TOKENS=path/to/file.json node yourapp.js
 ```
 
 ## Tests

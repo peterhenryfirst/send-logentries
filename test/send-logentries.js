@@ -52,6 +52,7 @@ describe('send-logentries tests', function() {
 		should.exist(sendLogentries);
 		sendLogentries.should.be.an('object');
 
+		expect(sendLogentries).to.have.property('setSettings').and.to.be.a('function');
 		expect(sendLogentries).to.have.property('init').and.to.be.a('function');
 		
 		expect(sendLogentries).to.have.property('start').and.to.be.a('function');
@@ -63,8 +64,6 @@ describe('send-logentries tests', function() {
 
 	describe('init function', function() {
 		it('Get null if setting is an empty object (not found) ', function() {
-			mockery.registerMock('../settings.json', {});
-			
 			sendLogentries = require('../lib/send-logentries');
 
 			var result = sendLogentries.init('noname');
@@ -75,15 +74,14 @@ describe('send-logentries tests', function() {
 		it('Get an object if the name arg do not exist in settings', function() {
 			var objectExpected = { log: 'ok' },
 				result;
-			mockery.registerMock('../settings.json', {
+			loggerStub.returns(objectExpected);
+			
+			sendLogentries = require('../lib/send-logentries');
+			result = sendLogentries.init('noname', {
 				"default": {
 					"token": "----"
 				},
 			});
-			loggerStub.returns(objectExpected);
-			
-			sendLogentries = require('../lib/send-logentries');
-			result = sendLogentries.init('noname');
 			
 			expect(loggerStub).to.have.been.calledOnce;
 			expect(result).to.deep.equal(objectExpected);
@@ -94,19 +92,20 @@ describe('send-logentries tests', function() {
 					log: 'ok'
 				},
 				result;
-			mockery.registerMock('../settings.json', {
+			loggerStub.returns(objectExpected);
+			
+			sendLogentries = require('../lib/send-logentries');
+			result = sendLogentries.init('noname', {
 				"noname": {
 					"token": "----"
 				},
 			});
-			loggerStub.returns(objectExpected);
-			
-			sendLogentries = require('../lib/send-logentries');
-			result = sendLogentries.init('noname');
 			
 			expect(loggerStub).to.have.been.calledOnce;
 			expect(result).to.deep.equal(objectExpected);
 		});
+
+		//TODO: test with string token
 	});
 
 	describe('responseTime function', function() {
@@ -187,16 +186,15 @@ describe('send-logentries tests', function() {
 				objectExpected = {
 					log: logStub
 				};
-			mockery.registerMock('../settings.json', {
-				"noname": {
-					"token": "----"
-				},
-			});
 
 			loggerStub.returns(objectExpected);
 
 			sendLogentries = require('../lib/send-logentries');
-			sendLogentries.init('noname');
+			sendLogentries.init('noname', {
+				"noname": {
+					"token": "----"
+				}
+			});
 
 			var responseFunction = sendLogentries.responseTime();
 			
@@ -222,16 +220,15 @@ describe('send-logentries tests', function() {
 				objectExpected = {
 					info: logStub
 				};
-			mockery.registerMock('../settings.json', {
-				"noname": {
-					"token": "----"
-				},
-			});
 
 			loggerStub.returns(objectExpected);
 
 			sendLogentries = require('../lib/send-logentries');
-			sendLogentries.init('noname');
+			sendLogentries.init('noname', {
+				"noname": {
+					"token": "----"
+				}
+			});
 
 			var responseFunction = sendLogentries.responseTime();
 			
@@ -260,5 +257,7 @@ describe('send-logentries tests', function() {
 			expect(arg.unit).to.equal('ms');
 		});
 	});
+	
+	//TODO: test for setSetting function
 });
 
