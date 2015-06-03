@@ -1,6 +1,6 @@
 {
   "name": "send-logentries",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Send logs to logentries with a name instead of token and expose a basic functions to use with your logs.",
   "main": "./lib/send-logentries.js",
   "scripts": {
