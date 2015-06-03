@@ -5,7 +5,9 @@ Send logs to logentries with a name instead of token and expose a basic function
 
 ## Installation
 
-	npm install send-logentries --save
+```sh
+ npm install send-logentries --save
+```
 
 ## Usage
 
@@ -89,7 +91,9 @@ An example in unix systems:
 
 ## Tests
 
-  npm test
+```sh
+ npm test
+```
 
 ## Contributing
 
